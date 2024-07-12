@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template"
+>
+
+<body>
+    <div layout:fragment="content">
+        <div class="w-full h-full overflow-hidden flex items-center justify-center">
+            <div class="bg-white w-fit  shadow-md rounded mt-3 px-8 pt-2 pb-6 mb-4">
+                <h4 class="py-3 text-lg font-bold px-3 flex justify-center"><span>Enregistrement d'une Commande</span></h4>
+                <div class="mb-3 flex justify-between border rounded px-3 py-3">
+                    <input th:value="${panier.client.nomComplet}" placeholder="Nom et prénoms" readonly name="nomComplet" class="bg-gray-200 mr-2 appearance-none border rounded w-fit py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="nomComplet" type="text">
+                    <input th:value="${panier.client.telephone}" placeholder="Téléphone" readonly name="telephone" class=" bg-gray-200 mr-2 appearance-none border rounded w-fit py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="telephone" type="text">
+                    <input th:value="${panier.client.adresse}" placeholder="Adresse" readonly name="adresse" class="bg-gray-200 appearance-none border rounded w-fit py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="adresse" type="text">
+                </div>
+                <div class="mb-3 border rounded px-3 py-3">
+                    <div class="justify-between border rounded px-3 py-3 mb-3">
+                        <form method="post" th:object="${articleForm}" th:action="@{/admin/panier/add}">
+                            <select  name="article" class="w-fit py-2 px-3 mr-2 border rounded text-gray-700 focus:outline-none focus:shadow-outline"
+                                    th:field="*{id}">
+                                <option value="0">Choisir un article</option>
+                                <option th:each="article:${articlesSelectForm}"
+                                        th:value="${article.id}"
+                                        th:text="${article.libelle}"></option>
+                            </select>
+
+                            <input th:field="*{quantite}"  name="qte" placeholder="Quantité" class=" mr-2 appearance-none border rounded w-fit py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number">
+                            <input th:field="*{prix}"  name="prix" placeholder="Prix Achat" class=" mr-2 appearance-none border rounded w-fit py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number">
+                            <button type="submit" class="rounded-md border-2 border-green-600 px-4 py-1 font-medium text-green-600 transition-colors hover:bg-green-600 hover:text-white cursor-pointer">Ajouter</button>
+                        </form>
+                    </div>
+                    <table  class="w-full mb-3  border border-collapse bg-white text-left text-sm text-gray-500">
+                        <thead class="">
+                            <th cope="col" class="border px-6 py-3 font-medium text-gray-900">Article</th>
+                            <th cope="col" class="border px-6 py-3 font-medium text-gray-900">Prix</th>
+                            <th cope="col" class="border px-6 py-3 font-medium text-gray-900">Quantite</th>
+                            <th cope="col" class="border px-6 py-3 font-medium text-gray-900">Montant</th>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+                            <tr th:each="article:${panier.articlesPaniers}">
+                                <td class="border px-6 py-2" th:text="${article.libelle}"></td>
+                                <td class="border px-6 py-2" th:text="${article.prix}"></td>
+                                <td class="border px-6 py-2" th:text="${article.quantite}"></td>
+                                <td class="border px-6 py-2" th:text="${article.montant}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <p class=" w-fit bg-cyan-400 text-base font-bold border rounded py-3 px-6">
+                            Total : <span class="text-white font-monospace fs-3" th:text="${panier.total}">0.0 </span>
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-end">
+                        <a class="bg-cyan-400 cursor-pointer hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded"
+                            th:href="@{/admin/commande/save}">
+                            Valider la Commande
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

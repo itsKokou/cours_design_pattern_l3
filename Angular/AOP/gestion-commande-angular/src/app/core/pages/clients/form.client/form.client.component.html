@@ -1,0 +1,71 @@
+
+    <div layout:fragment="content">
+        <div class="w-full h-full overflow-hidden flex items-center justify-center">
+            <form method="post" class="bg-white w-2/5  shadow-md rounded mt-3 px-8 pt-2 pb-6 mb-4"
+                #formClient="ngForm"
+                (ngSubmit)="onSubmit()"
+            >
+                <h4 class="py-3 text-lg font-bold px-3 flex justify-center"><span>Enregistrement d'un client</span></h4>
+                <div class="mb-3">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="nomComplet">Nom et Prénoms</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="nomComplet" type="text"
+                        name="nomComplet" 
+                        [(ngModel)]="clientCreate.nomComplet"
+                        required
+                        minlength="6"
+                        #nomComplet = "ngModel"
+                    >
+                    @if (nomComplet.errors && (nomComplet.dirty || nomComplet.touched)) {
+                        @if (nomComplet.errors['required']) {
+                            <small class="text-red-600 text-sm">Le nom et prénoms est requis</small>
+                        }
+                        @if (nomComplet.errors['minlength']) {
+                            <small class="text-red-600 text-sm">Le nom et prénoms comptent au moins 6 caractères</small>
+                        }
+                    }
+                </div>
+                <div class="mb-3">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="tel">Téléphone</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="tel" type="text"
+                        name="telephone" 
+                        [(ngModel)]="clientCreate.telephone"
+                        required
+                        minlength="9"
+                        maxlength="9"
+                        #telephone = "ngModel"
+                    >
+                    @if (telephone.errors && (telephone.dirty || telephone.touched)) {
+                        @if (telephone.errors['required']) {
+                            <small class="text-red-600 text-sm">Le téléphone doit contenir 9 chiffres </small>
+                        }
+                    }
+                </div>
+                <div class="mb-3">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="ville">Ville</label>
+                    <input  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="ville" type="text"
+                        name="ville" 
+                        [(ngModel)]="clientCreate.ville"
+                    >
+                </div>
+                <div class="mb-3">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="quartier">Quartier</label>
+                    <input  name="quartier" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="quartier" type="text"
+                        name="quartier" 
+                        [(ngModel)]="clientCreate.quartier"
+                    >
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="villa">N° Villa</label>
+                    <input  name="numVilla" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="villa" type="text"
+                        name="numVilla" 
+                        [(ngModel)]="clientCreate.numVilla"
+                    >
+                </div>
+                <div class="flex items-center justify-end">
+                    <button [disabled]="formClient.invalid" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                        Enregistrer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>

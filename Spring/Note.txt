@@ -1,0 +1,14 @@
+Toute constante est mise dans application.properties.
+
+Y mettre également les messages d'erreur. 
+
+Gerer les exceptions internes dans le projet
+
+3 projets backend
+
+Core : Ce qui est commun au mvc et restAPI (Entity, controller, service commun)
+   - data
+   - exception
+   - service
+RestAPI : utilise la dependance : web : controller, security, dto
+Spring MVC : utilise la dependance : security, controller et dto

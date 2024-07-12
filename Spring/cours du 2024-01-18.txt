@@ -1,0 +1,16 @@
+Ecosystème = plus large qu'un framework 
+
+Couche Web = Controller(Reçoit des request et produit des responses),....
+
+spring data : accès bd
+
+inversion de contrôle : une classe qui utilise une dependance ne doit pas l'instancier
+conteneur : une zone memoire qui contient les dependances créées
+ 
+design pattern singleton : la dépendance est créée une seule fois
+
+bean : dependance instanciée au démarrage 
+
+context : fichier xml contenant la declaration des beans
+
+annotation: code de configuration qui s'applique sur classe,methode,interface. ce code s'injecte. (Programmation Orientée Aspect) 

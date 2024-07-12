@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template"
+>
+
+<body style="background: #edf2f7;">
+    <div layout:fragment="content">
+         <div th:if="${client!=null}"  class="h-full overflow-hidden flex items-center justify-center">
+            <form method="get" th:action="@{/client/commandes/client/{id}(id=${client.id})}"   class="w-auto rounded-lg px-4 py-3 mt-4 text-gray-500 border bg-white dark:border-gray-700 dark:text-gray-400 dark:bg-gray-900">
+                <div  class="inline-flex mt-1 w-full justify-center">
+                    <label for="date1" class=" mr-4 block mb-2 font-medium text-gray-900 dark:text-white">Date :</label>
+                    <input type="date" th:value="${date}" name="date" id="date1" class="border border-gray-400 rounded px-3 py-1 text-black outline-0">
+                    <button type="submit" class="px-3 py-1 ml-10 text-white bg-blue-600 border border-1 border-blue-600 rounded hover:bg-white hover:text-blue-600">Rechercher</button>
+                </div>
+            </form>
+        </div>
+        <div th:if="${client==null}"  class="h-full overflow-hidden flex items-center justify-center">
+            <form method="get" th:action="@{/admin/commande}"   class="w-auto rounded-lg px-4 py-3 mt-4 text-gray-500 border bg-white dark:border-gray-700 dark:text-gray-400 dark:bg-gray-900">
+                <div  class="inline-flex mt-1 w-full justify-center">
+                    <label for="date" class=" mr-4 block mb-2 font-medium text-gray-900 dark:text-white">Date :</label>
+                    <input type="date" th:value="${date}" name="date" id="date" class="border border-gray-400 rounded px-3 py-1 text-black outline-0">
+                    <button type="submit" class="px-3 py-1 ml-10 text-white bg-blue-600 border border-1 border-blue-600 rounded hover:bg-white hover:text-blue-600">Rechercher</button>
+                </div>
+            </form>
+        </div>
+
+         <div class="h-full overflow-hidden flex items-center justify-center">
+            <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-4">
+                <h4 class="py-3 px-3" th:if="${client!=null}">Les Commandes de  <span class="text-blue-600 font-bold" th:text="${client.nomComplet}"> </span> </h4>
+                <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
+                    <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900">N°</th>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Date</th>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Montant</th>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Adresse</th>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Etat</th>
+                        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Paiement</th>
+                    </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+                        <tr class="hover:bg-gray-50" th:each="cmd:${commandes}">
+                            <td class="px-6 py-4" th:text="${cmd.id}"></td>
+                            <td class="px-6 py-4" th:text="${#dates.format(cmd.date,'dd-MM-yyyy')}"></td>
+                            <td class="px-6 py-4" th:text="${cmd.montant}"></td>
+                            <td class="px-6 py-4" th:text="${cmd.adresse}"></td>
+                            <td class="px-6 py-4" th:text="${cmd.etat}"></td>
+                            <td class="px-6 py-4">
+                                <a class="border-green-600 text-green-600 hover:bg-green-600" th:class="${cmd.couleur}" th:text="${cmd.etatSuivant}"></a>
+                                <a class=" hidden border-yellow-500 text-yellow-500 hover:bg-yellow-500" th:text="${cmd.etatSuivant}"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <ol class="flex justify-center gap-1 text-xs font-medium" th:if="${nbrePage>1}">
+            <li th:if="${currentPage>0}">
+                <a th:if="${client!=null}" th:href="@{/client/commandes/client/{id}(id=${client.id},page=${currentPage -1}, date=${date})}"
+                   class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180 hover:bg-gray-300">
+                    <span class="sr-only">Prev Page</span>
+                    <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-3 w-3"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                    >
+                        <path
+                                fill-rule="evenodd"
+                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                clip-rule="evenodd"
+                        />
+                    </svg>
+                </a>
+                <a th:if="${client==null}" th:href="@{/admin/commande(page=${currentPage -1}, date=${date})}"
+                   class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180 hover:bg-gray-300">
+                    <span class="sr-only">Prev Page</span>
+                    <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-3 w-3"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                    >
+                        <path
+                                fill-rule="evenodd"
+                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                clip-rule="evenodd"
+                        />
+                    </svg>
+                </a>
+            </li>
+
+            <li th:each="p,status:${pages}">
+                <a th:if="${client!=null}" th:text="${status.index +1}"
+                   th:class="${status.index==currentPage? 'block h-8 w-8 rounded border text-center leading-8 border-blue-600 bg-blue-600 text-white' : 'block h-8 w-8 rounded border text-center leading-8 border-gray-100 bg-white text-gray-900 hover:bg-gray-300'}"
+                   th:href="@{/client/commandes/client/{id}(id=${client.id},page=${status.index}, date=${date})}"
+                ></a>
+                <a th:if="${client==null}" th:text="${status.index +1}"
+                   th:class="${status.index==currentPage? 'block h-8 w-8 rounded border text-center leading-8 border-blue-600 bg-blue-600 text-white' : 'block h-8 w-8 rounded border text-center leading-8 border-gray-100 bg-white text-gray-900 hover:bg-gray-300'}"
+                   th:href="@{/admin/commande(page=${status.index}, date=${date})}"
+                ></a>
+            </li>
+
+
+
+            <li th:if="${currentPage<nbrePage -1}">
+            <a  th:if="${client!=null}"
+                    th:href="@{/client/commandes/client/{id}(id=${client.id},page=${currentPage+1}, date=${date})}"
+                    class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180 hover:bg-gray-300"
+            >
+                <span class="sr-only">Next Page</span>
+                <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-3 w-3"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                >
+                    <path
+                            fill-rule="evenodd"
+                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                            clip-rule="evenodd"
+                    />
+                </svg>
+            </a>
+            <a  th:if="${client==null}"
+                    th:href="@{/admin/commande(page=${currentPage+1}, date=${date})}"
+                    class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180 hover:bg-gray-300"
+            >
+                <span class="sr-only">Next Page</span>
+                <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-3 w-3"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                >
+                    <path
+                            fill-rule="evenodd"
+                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                            clip-rule="evenodd"
+                    />
+                </svg>
+            </a>
+        </li>
+        </ol>
+    </div>
+</body>
+
+</html>

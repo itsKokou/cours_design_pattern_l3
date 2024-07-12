@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template"
+>
+
+<body>
+    <div layout:fragment="content">
+        <div class="w-full h-full overflow-hidden flex items-center justify-center">
+            <form method="post" th:action="@{/admin/client/save}" class="bg-white w-2/5  shadow-md rounded mt-3 px-8 pt-2 pb-6 mb-4">
+                <h4 class="py-3 text-lg font-bold px-3 flex justify-center"><span>Enregistrement d'un client</span></h4>
+                <div class="mb-3">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="nomComplet">Nom et Prénoms</label>
+                    <input th:value="${client.nomComplet}" name="nomComplet" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="nomComplet" type="text">
+                    <small class="text-red-600 text-sm" th:if="${errors!=null && errors.containsKey('nomComplet')}" th:text="${errors.get('nomComplet')}"> </small>
+                </div>
+                <div class="mb-3">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="tel">Téléphone</label>
+                    <input th:value="${client.telephone}" name="telephone" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="tel" type="text">
+                    <small class="text-red-600 text-sm" th:if="${errors!=null && errors.containsKey('telephone')}" th:text="${errors.get('telephone')}"> </small>
+                </div>
+                <div class="mb-3">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="ville">Ville</label>
+                    <input th:value="${client.ville}" name="ville" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="ville" type="text">
+
+                </div>
+                <div class="mb-3">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="quartier">Quartier</label>
+                    <input th:value="${client.quartier}" name="quartier" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="quartier" type="text">
+
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="villa">N° Villa</label>
+                    <input th:value="${client.numVilla}" name="numVilla" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="villa" type="text">
+
+                </div>
+                <div class="flex items-center justify-end">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                        Enregistrer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+
+    <div >
+        <div class="w-full h-full overflow-hidden flex items-center justify-center">
+            <form action="" [formGroup]="form" (ngSubmit)="OnSubmit()" class="bg-white  shadow-md rounded mt-3 px-8 pt-2 pb-6 mb-4">
+                <h4 class="py-3 text-lg font-bold px-3 flex justify-center"><span>Enregistrement d'une Commande</span></h4>
+                <div formGroupName="client" class="mb-3 w-full flex justify-center border rounded px-3 py-3">
+                    <input formControlName="telephone" (keyup)="OnSearchClientByTel()"   placeholder="Téléphone" name="telephone" class=" mr-2 appearance-none border rounded w-fit py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="telephone" type="text">
+                    @if (client.controls['telephone'].errors && (client.controls['telephone'].dirty || client.controls['telephone'].touched)) {
+                        @if (client.controls['telephone'].errors['required']) {
+                            <small class="text-red-600 text-sm block">Le téléphone doit contenir 9 chiffres </small>
+                        }
+                    }
+                    <input formControlName="nomComplet"  placeholder="Nom et prénoms" readonly name="nomComplet" class="bg-gray-200 mr-2 appearance-none border rounded w-fit py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="nomComplet" type="text">
+                    <input formControlName="adresse"  placeholder="Adresse" readonly name="adresse" class="bg-gray-200 appearance-none border rounded w-fit py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="adresse" type="text">
+                </div>
+                <div class="mb-3 border rounded px-3 py-3">
+                    <div class="justify-between border rounded px-3 py-3 mb-3">
+                        <div formGroupName="article">
+                            <input formControlName="libelle" (keyup)="OnSearchArticleByLibelle()" name="libelle" placeholder="Libelle" class=" mr-2 appearance-none border rounded w-fit py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text">
+                            @if (article.controls['libelle'].errors && (article.controls['libelle'].dirty || article.controls['libelle'].touched)) {
+                                <small class="text-red-600 text-sm block">Le libellé doit avoir au moins 5 caractères </small>
+                            }
+                            <input formControlName="quantiteStock" name="quantiteStock" readonly placeholder="Quantité Stock" class=" mr-2 appearance-none border rounded w-fit py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number">
+                            <input formControlName="prix"  name="prix" readonly  placeholder="Prix Unitaire" class=" mr-2 appearance-none border rounded w-fit py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="number">
+                            
+                            <input formControlName="quantite"  name="quantite" placeholder="Quantité Cmde" class=" mr-2 appearance-none border rounded w-fit py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text">
+                            @if (article.controls['quantite'].errors && (article.controls['quantite'].dirty || article.controls['quantite'].touched)) {
+                                <small class="text-red-600 text-sm block">La quantité doit être positive </small>
+                            }
+                            @if (article.errors && (article.controls['quantite'].dirty || article.controls['quantite'].touched)) {
+                                @if (article.errors["isNotNumber"]) {
+                                    <small class="text-red-600 text-sm block">La quantité doit être un nombre </small>
+                                }
+                                @if (article.errors["qteNotValid"]) {
+                                    <small class="text-red-600 text-sm block">La quantité doit être inférieure au stock </small>
+                                }
+                            }
+                            <button 
+                                [disabled]="article.invalid" 
+                                (click)="addProduitToPanier()" 
+                                class="rounded-md border-2 border-green-600 px-4 py-1 font-medium text-green-600 transition-colors hover:bg-green-600 hover:text-white cursor-pointer"
+                            >Ajouter</button>
+                        </div>
+                    </div>
+                    <table  class="w-full mb-3  border border-collapse bg-white text-left text-sm text-gray-500">
+                        <thead class="">
+                            <th cope="col" class="border px-6 py-3 font-medium text-gray-900">Article</th>
+                            <th cope="col" class="border px-6 py-3 font-medium text-gray-900">Prix</th>
+                            <th cope="col" class="border px-6 py-3 font-medium text-gray-900">Quantite</th>
+                            <th cope="col" class="border px-6 py-3 font-medium text-gray-900">Montant</th>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+                        @for (item of this.articlePanier.controls; track $index) {
+                            <tr >
+                                <td class="border px-6 py-2">{{item.get("libelle")?.value}}</td>
+                                <td class="border px-6 py-2">{{item.get("prix")?.value}}</td>
+                                <td class="border px-6 py-2">{{item.get("quantite")?.value}}</td>
+                                <td class="border px-6 py-2">{{item.get("montant")?.value}}</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                    <div>
+                        <p class=" w-fit bg-cyan-400 text-base font-bold border rounded py-3 px-6">
+                            Total : <span class="text-white font-monospace fs-3">{{this.total.value}} </span>
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-end">
+                        <button type="submit" class="bg-cyan-400 cursor-pointer hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded"
+                        [disabled]="client.invalid || articlePanier.invalid"    
+                        >
+                            Valider la Commande
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>

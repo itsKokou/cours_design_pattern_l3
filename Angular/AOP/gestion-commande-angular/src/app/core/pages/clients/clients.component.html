@@ -1,0 +1,55 @@
+<section class="mb-2.5">
+    <div class="mt-3 pr-16 flex justify-end content-end">
+      <a routerLink="form" class="px-3 py-1 ml-10 cursor-pointer text-white bg-blue-600 border border-1 transition-colors border-blue-600 rounded hover:bg-white hover:text-blue-600">Nouveau</a>
+    </div>
+    <div class="h-full overflow-hidden flex items-center justify-center">
+        <form method="get" class="w-auto rounded-lg px-4 py-3 mt-4 text-gray-500 border bg-white dark:border-gray-700 dark:text-gray-400 dark:bg-gray-900">
+            <div  class="inline-flex mt-1 w-full justify-center">
+                <label for="phone" class=" mr-4 block mb-2 font-medium text-gray-900 dark:text-white">Téléphone :</label>
+                <input 
+                    #keyword
+                    (keyup)="searchtelephone(keyword.value)" 
+                    type="text" name="phone" id="phone" class="border border-gray-400 rounded px-3 py-1 text-black outline-0">
+                <!--button type="submit" class="px-3 py-1 ml-10 text-white bg-blue-600 border border-1 border-blue-600 rounded hover:bg-white hover:text-blue-600">Rechercher</button--> 
+            </div>
+        </form>
+    </div>
+
+    <div class="h-full overflow-hidden flex items-center justify-center">
+      <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-4">
+          <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
+              <thead class="bg-gray-50">
+              <tr>
+                  <th scope="col" class="px-6 py-4 font-medium text-gray-900">Nom et Prénom</th>
+                  <th scope="col" class="px-6 py-4 font-medium text-gray-900">Telephone</th>
+                  <th scope="col" class="px-6 py-4 font-medium text-gray-900">Adresse</th>
+                  <th scope="col" class="px-6 py-4 font-medium text-gray-900">Etat</th>
+                  <th scope="col" class="px-6 py-4 font-medium text-gray-900">Commande</th>
+                  <th scope="col" class="px-6 py-4 font-medium text-gray-900">Actions</th>
+              </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+              @for (item of response?.results; track $index) {
+                  <tr class="hover:bg-gray-50" >
+                      <td class="px-6 py-4">{{item.nomComplet}}</td>
+                      <td class="px-6 py-4">{{item.telephone}}</td>
+                      <td class="px-6 py-4">{{item.quartier + " | " +item.villa+" | " + item.numVilla}}</td>
+                      <td class="px-6 py-4">
+                      <span class="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold bg-green-50 text-green-600">
+                          <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>Active
+                      </span>
+                      </td>
+                      <td class="px-6 py-4">
+                          <a routerLink="/commandes/{{item.id}}" class="rounded-md cursor-pointer border-2 border-orange-600 px-6 py-1 font-medium text-orange-600 transition-colors hover:bg-orange-600 hover:text-white">Voir+</a>
+                      </td>
+                      <td class="px-6 py-4">
+                          <a class="rounded-md cursor-pointer border-2 border-blue-600 px-6 py-1 font-medium text-blue-600 transition-colors hover:bg-blue-600 hover:text-white">New Cmde</a>
+                      </td>
+                  </tr>
+              }
+              </tbody>
+          </table>
+      </div>
+  </div>
+  <app-pagination [data]="dataPagination" (onGetNumBerPage)="paginate($event)"></app-pagination>
+  </section>

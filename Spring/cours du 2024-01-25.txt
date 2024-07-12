@@ -1,0 +1,6 @@
+Programmation déclarative(Repository) : on n'ecrit pas du code mais on declare juste les interfaces
+
+Programmation impérative (controller) : du code pur
+
+Faire cmd avec service et pagination
++ filtre par date 

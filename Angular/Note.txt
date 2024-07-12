@@ -1,0 +1,72 @@
+Mock : serveur qui jour le rôle d'un API. Le cas vous ne pouvez pas attendre les données. serveur de test
+
+Insomnia, Postman : tester les API
+
+Model en front = DTO en back 
+
+API : backend qui produit des json et non des vues
+
+API REST FULL:
+ - un seul point d'entrée 
+ - End point : même ressource Client, end point debute avec /clients
+   Si c'est get ou post c'est /clients
+ - Http
+ - cachage
+ - Stateless
+ - subdiviser en couche 
+ - uri en verbe :  GET, POST, PUT, DELETE
+ - auto-découvrable : documentation swagger
+
+
+La sauvegarde des données est fait par le front avec local Storage
+
+Projet : marquer présence peut se faire aussi sur flutter pour ac, il scanne code QR de l'étudiant.
+
+body : les données envoyées par les forms à travers la requete
+
+
+Code commence par :
+1 : information
+2 : Succes
+3 : redirection
+4 : error du client HTTP
+5 : Exception server 
+
+== Un module angular est un ensemble de :
+
+ - component : html + css + controller( gere html et css et comunique avec service). un peu comme les layouts ou shared
+
+ - service : composant qui communique avec les backend. recupere les données
+
+ - directives : composant permettant d'adapté les components : for, routerLink
+
+ - pipes : transformer les données : stream
+
+-------------------------------------------
+
+pages :  composants appelés à partir de routeur
+component: morceau de code html réutilisable 
+
+
+Pour que service contact backend, on ajoute des dependances : 
+  - un module dans le config : provideHttpClient(withFetch())
+  - puis injecter sur service : HttpClient
+
+Observable : un objet capable de recuperer un flux d'evenement dans le temps
+
+Tout attribut dans une classe typeScript doit être initialisé
+
+NB: Faire la classe de configuration du crossOrigin pour ne pas faire ça sur tous les controller 
+
+
+======================== DIRECTIVES 
+
+directive de template : changer le comportement d'une balise, l'aspect
+directive de structure : generer des struture, balise
+
+
+#keyword dans une balise == variable de template
+keyword.value = valeur du champ où se trouve #keyword
+
+
+Two Way DataBinding : Fonctionne toujours avec un name sinon marche pas
